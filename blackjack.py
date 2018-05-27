@@ -19,8 +19,8 @@ NameMap = {
 	8: 'OLIVIA',
 }
 
-NDecks = 3
-NPlayers = 1
+NDecks = 6
+NPlayers = 3
 
 print("***Welcome to Blackjack***\n\n")
 
@@ -87,19 +87,19 @@ class Deck:
 		self.cards.append(card)
 
 class Player:
-	def __init__(self): #(self,index)
+	def __init__(self,id): #(self,index)
 
 		self.cards = []
-		self.dealer = False
+		self.id = id
+		self.dealer = not bool(id)
 		self.playername = ""
-		self.balance = 100 #do this via dictionary maybe?
+		self.balance = 1000000 if self.dealer else 100 #do this via dictionary maybe?
 		self.term = False
 		self.bust = False
 		self.fold = False
 		self.stick = False
 
 		self.value = 0
-		self.id = 0
 
 
 
@@ -187,18 +187,18 @@ class Player:
 
 class Game:
 
-	def __init__(self,myDeck,disDeck):
+	def __init__(self,myDeck,disDeck,players):
 
 
-		self.playerhands = [Player() for _ in range(NPlayers + 1)]
+		self.playerhands = players
 		self.cardsontable = []
 
-		index = 0
-		for hands in self.playerhands:
-			hands.id = index
-			if index == 0:
-				hands.dealer = True
-			index = index + 1
+		# index = 0
+		# for hands in self.playerhands:
+		# 	hands.id = index
+		# 	if index == 0:
+		# 		hands.dealer = True
+		# 	index = index + 1
 		
 		self.myDeck = myDeck
 		self.disDeck = disDeck
@@ -211,7 +211,7 @@ class Game:
 		self.evaluate()
 		self.status()
 		self.turn()
-		input("Game over")
+		input("Adrian Wins!")
 		self.discard()
 
 
@@ -287,7 +287,7 @@ class Game:
 						self.evaluate()
 					
 
-					if hand.bust == True or hand.stick == True or hand.fold == True:
+					if hand.bust or hand.stick or hand.fold:
 						hand.term = True
 
 					self.status()
@@ -331,16 +331,18 @@ class Game:
 class Match:
 	
 	def __init__(self):
+		self.players = [Player(id) for id in range(NPlayers + 1)]
 		self.myDeck = Deck()
 		self.disDeck = Deck()
 		self.myDeck.populate()
 		self.play = True
 		#print(self.myDeck)
 		while len(self.myDeck.cards) > 4*(NPlayers + 1) and self.play == True:
-			Game(self.myDeck,self.disDeck)
+			
+			Game(self.myDeck,self.disDeck,self.players)
 			play = input("Continue? [y/n]")
 			if play != "y":
 				self.play = False
 
-
+#blank card cut mid-game?
 Match()
