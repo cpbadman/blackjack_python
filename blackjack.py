@@ -87,10 +87,11 @@ class Deck:
 		self.cards.append(card)
 
 class Player:
-	def __init__(self): #(self,index)
+	def __init__(self,id): #(self,index)
 
-		self.cards = []
+		self.id = 0
 		self.dealer = False
+		self.cards = []
 		self.playername = ""
 		self.balance = 100 #do this via dictionary maybe?
 		self.term = False
@@ -99,7 +100,7 @@ class Player:
 		self.stick = False
 
 		self.value = 0
-		self.id = 0
+
 
 
 
@@ -187,10 +188,10 @@ class Player:
 
 class Game:
 
-	def __init__(self,myDeck,disDeck):
+	def __init__(self,myDeck,disDeck,players):
 
 
-		self.playerhands = [Player() for _ in range(NPlayers + 1)]
+		self.playerhands = players
 		self.cardsontable = []
 
 		index = 0
@@ -334,10 +335,11 @@ class Match:
 		self.myDeck = Deck()
 		self.disDeck = Deck()
 		self.myDeck.populate()
+		self.players = [Player() for _ in range(NPlayers + 1)]
 		self.play = True
 		#print(self.myDeck)
 		while len(self.myDeck.cards) > 4*(NPlayers + 1) and self.play == True:
-			Game(self.myDeck,self.disDeck)
+			Game(self.myDeck, self.disDeck, self.players)
 			play = input("Continue? [y/n]")
 			if play != "y":
 				self.play = False
