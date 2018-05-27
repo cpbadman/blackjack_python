@@ -1,3 +1,5 @@
+from Config import NameMap
+
 class Player:
 	def __init__(self,id): #(self,index)
 

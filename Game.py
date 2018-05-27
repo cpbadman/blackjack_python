@@ -75,3 +75,69 @@ class Game:
 			#if i == 1:
 			#	card.showcard()
 			#self.dealerhand.append(card)
+
+	def turn(self):
+		for hand in self.playerhands:
+
+			if hand.dealer == False:
+
+				while hand.term == False:
+					move = input("Would {} like a card?".format(hand.playername))
+					print(move)
+					
+					if move == "h":
+						card = self.myDeck.get_top_card()
+						card.showcard()
+						hand.append(card)
+						self.evaluate()
+					
+					elif move == "f":
+						hand.fold = True
+						self.evaluate()
+					else:
+						hand.stick = True
+						self.evaluate()
+					
+
+					if hand.bust == True or hand.stick == True or hand.fold == True:
+						hand.term = True
+
+					self.status()
+		
+		hand = self.playerhands[0]
+
+		while hand.term == False:
+
+			card = hand.cards[0]
+			card.showcard()
+			input("Press enter for Dealer hand")
+					
+			if hand.value < 17:
+				card = self.myDeck.get_top_card()
+				card.showcard()
+				hand.append(card)
+				self.evaluate()
+			
+			else:
+				hand.stick = True
+				self.evaluate()
+					
+
+			if hand.bust == True or hand.stick == True:
+				hand.term = True
+				
+			self.evaluate()
+			self.status()
+
+	def discard(self):
+		for hand in self.playerhands:
+			for i in range(len(hand.cards)):
+				card = hand.get_top_card()
+				self.disDeck.append(card)
+				#print(self.disDeck)
+				#hand.refresh()
+				hand.refresh()
+		self.evaluate()
+		self.status()
+
+

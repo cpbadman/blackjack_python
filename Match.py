@@ -1,6 +1,7 @@
-from blackjack.Player import Player
-from blackjack.Deck import Deck
-from blackjack.Game import Game
+from Player import Player
+from Deck import Deck
+from Game import Game
+from Config import NPlayers, NDecks
 
 class Match:
 	

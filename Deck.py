@@ -1,5 +1,6 @@
 from random import shuffle, randint
-from blackjack.Card import Card
+from Card import Card
+from Config import NDecks
 
 class Deck:
 	def __init__(self):
