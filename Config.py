@@ -17,5 +17,7 @@ NameMap = {
 	8: 'OLIVIA',
 }
 
+Minbet = 1
+Maxbet = 20
 NDecks = 6
 NPlayers = 3

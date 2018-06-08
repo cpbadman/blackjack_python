@@ -24,7 +24,7 @@ class Game:
 		self.evaluate()
 		self.status()
 		self.turn()
-		input("Adrian Wins!")
+		input("Press Enter")
 		self.discard()
 
 
@@ -36,14 +36,14 @@ class Game:
 
 
 		print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n")
-		print("CARDS:	")
+		print("CARDS	")
 		print("	Deck:		{}".format(len(self.myDeck.cards)))
 		print("	On Table:	{}".format(len(self.cardsontable)))
 		print("	Discarded:	{}".format(len(self.disDeck.cards)))
-		print("\n\n")
+		print("\n")
 
 		#print("\nDealer:")
-		#print(self.dealerhand, end = "")
+		#print(self.dealerhand, end = "
 		#print("Value: " + str(self.dealerhand.value) + "\nBust: " + str(self.dealerhand.bust) + "\n")
 
 		for i,hand in enumerate(self.playerhands):
@@ -71,19 +71,20 @@ class Game:
 					card.showcard()
 				hand.append(card)
 
-			#card = self.myDeck.get_top_card()
-			#if i == 1:
-			#	card.showcard()
-			#self.dealerhand.append(card)
-
 	def turn(self):
 		for hand in self.playerhands:
 
 			if hand.dealer == False:
 
+				hand.betAmount = input("How much would you like to bet?")
+
 				while hand.term == False:
-					move = input("Would {} like a card?".format(hand.playername))
-					print(move)
+					print("What do you want to do {} ?".format(hand.playername))
+					print("hit		[h] \nstand		[s]")
+					print("double down	[d]")
+					print("split		[p]")
+					print("Move: " end = "")
+					move = input()
 					
 					if move == "h":
 						card = self.myDeck.get_top_card()
@@ -105,12 +106,12 @@ class Game:
 					self.status()
 		
 		hand = self.playerhands[0]
+		input("Press enter for Dealer hand")
 
 		while hand.term == False:
 
 			card = hand.cards[0]
 			card.showcard()
-			input("Press enter for Dealer hand")
 					
 			if hand.value < 17:
 				card = self.myDeck.get_top_card()

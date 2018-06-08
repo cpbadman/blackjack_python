@@ -8,14 +8,13 @@ class Player:
 		self.dealer = not bool(id)
 		self.playername = ""
 		self.balance = 1000000 if self.dealer else 100 #do this via dictionary maybe?
+		self.betAmount = 0
 		self.term = False
 		self.bust = False
 		self.fold = False
 		self.stick = False
 
 		self.value = 0
-
-
 
 	def __str__(self):
 		return self.__repr__()
